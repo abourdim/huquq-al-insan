@@ -426,30 +426,30 @@ function cycleTheme() {
   const idx = (THEMES.indexOf(currentTheme) + 1) % THEMES.length;
   currentTheme = THEMES[idx];
   document.documentElement.dataset.theme = currentTheme;
-  document.getElementById('themeIcon').textContent = THEME_ICONS[currentTheme];
+  { const _e=document.getElementById('themeIcon'); if(_e) _e.textContent=THEME_ICONS[currentTheme]; }
   playSound('theme');
 }
 
 // ═══════════════ RENDER ALL ═══════════════
 function renderAll() {
   const t = T[lang];
-  document.getElementById('appTitle').textContent = t.appTitle;
-  document.getElementById('splashSub').textContent = t.splashSub;
-  document.getElementById('splashHint').textContent = t.splashHint;
-  document.getElementById('tabHome').textContent = t.tabHome;
-  document.getElementById('tabTraits').textContent = t.tabTraits;
-  document.getElementById('tabQuiz').textContent = t.tabQuiz;
-  document.getElementById('tabProgress').textContent = t.tabProgress;
-  document.getElementById('tabAbout').textContent = t.tabAbout;
-  document.getElementById('traitsTitle').textContent = t.traitsTitle;
-  document.getElementById('traitsDesc').textContent = t.traitsDesc;
-  document.getElementById('quizTitle').textContent = t.quizTitle;
-  document.getElementById('quizDesc').textContent = t.quizDesc;
-  document.getElementById('progressTitle').textContent = t.progressTitle;
-  document.getElementById('progressDesc').textContent = t.progressDesc;
-  document.getElementById('helpTitle').textContent = t.helpTitle;
-  document.getElementById('duaPanelTitle').textContent = t.duaPanelTitle;
-  document.getElementById('ageModeBtn').textContent = ageMode === 'young' ? t.youngMode : t.teenMode;
+  { const _e=document.getElementById('appTitle'); if(_e) _e.textContent=t.appTitle; }
+  { const _e=document.getElementById('splashSub'); if(_e) _e.textContent=t.splashSub; }
+  { const _e=document.getElementById('splashHint'); if(_e) _e.textContent=t.splashHint; }
+  { const _e=document.getElementById('tabHome'); if(_e) _e.textContent=t.tabHome; }
+  { const _e=document.getElementById('tabTraits'); if(_e) _e.textContent=t.tabTraits; }
+  { const _e=document.getElementById('tabQuiz'); if(_e) _e.textContent=t.tabQuiz; }
+  { const _e=document.getElementById('tabProgress'); if(_e) _e.textContent=t.tabProgress; }
+  { const _e=document.getElementById('tabAbout'); if(_e) _e.textContent=t.tabAbout; }
+  { const _e=document.getElementById('traitsTitle'); if(_e) _e.textContent=t.traitsTitle; }
+  { const _e=document.getElementById('traitsDesc'); if(_e) _e.textContent=t.traitsDesc; }
+  { const _e=document.getElementById('quizTitle'); if(_e) _e.textContent=t.quizTitle; }
+  { const _e=document.getElementById('quizDesc'); if(_e) _e.textContent=t.quizDesc; }
+  { const _e=document.getElementById('progressTitle'); if(_e) _e.textContent=t.progressTitle; }
+  { const _e=document.getElementById('progressDesc'); if(_e) _e.textContent=t.progressDesc; }
+  { const _e=document.getElementById('helpTitle'); if(_e) _e.textContent=t.helpTitle; }
+  { const _e=document.getElementById('duaPanelTitle'); if(_e) _e.textContent=t.duaPanelTitle; }
+  { const _e=document.getElementById('ageModeBtn'); if(_e) _e.textContent=ageMode === 'young' ? t.youngMode : t.teenMode; }
   renderHome();
   renderTraits();
   renderProgress();
@@ -465,12 +465,12 @@ function renderHome() {
   const dayIdx = new Date().getDate() % TRAITS.length;
   const trait = TRAITS[dayIdx];
   const d = trait[lang];
-  document.getElementById('dailyCard').innerHTML = `
+  (document.getElementById('dailyCard')||{}).innerHTML= `
     <div class="daily-label">${t.dailyLabel}</div>
     <div class="daily-title">${trait.emoji} ${d.title}</div>
     <div class="daily-body">${ageMode === 'young' ? d.young : d.desc}</div>
     <div class="daily-action" onclick="switchTab('traits');toggleCard('trait-${trait.id}')">${t.readMore} &#8594;</div>`;
-  document.getElementById('homeGrid').innerHTML = TRAITS.map(tr => {
+  (document.getElementById('homeGrid')||{}).innerHTML= TRAITS.map(tr => {
     const dd = tr[lang];
     return `<div class="home-card" onclick="switchTab('traits');toggleCard('trait-${tr.id}')">
       <span class="hc-icon">${tr.emoji}</span>
@@ -689,7 +689,7 @@ function showQuizResult() {
     emoji = '🌱';
     title = lang==='ar'?'واصل التعلم!':lang==='fr'?'Continue d\'apprendre !':'Keep Learning!';
   }
-  document.getElementById('quizContainer').innerHTML = '';
+  (document.getElementById('quizContainer')||{}).innerHTML= '';
   const result = document.getElementById('quizResult');
   result.classList.remove('hidden');
   result.innerHTML = `
@@ -715,7 +715,7 @@ function renderProgress() {
   const nextBadge = BADGE_DEFS.find(b => !earned.includes(b.id));
   const nextXP = nextBadge ? nextBadge.xp : 1000;
   const progressPct = Math.min(100, (xp / nextXP) * 100);
-  document.getElementById('progressContainer').innerHTML = `
+  (document.getElementById('progressContainer')||{}).innerHTML= `
     <div class="progress-xp-card">
       <div class="xp-header">
         <span class="xp-icon">⭐</span>
@@ -764,13 +764,13 @@ function updateXPDisplay() {
 }
 
 // ═══════════════ RENDER: ABOUT ═══════════════
-function renderAbout() { const about = { ar: { disclaimerTitle:'⚠️ تنبيه مهم', disclaimer:'لست عالماً ولا مفتياً. هذا جهد متواضع من مسلم يحب كتب الشيخ الغزالي. المحتوى مستمد من الكتاب ومصادر إسلامية موثوقة.', authorName:'الشيخ محمد الغزالي', authorDates:'١٩١٧ — ١٩٩٦', authorBio:'عالم ومفكر إسلامي مصري بارز. ألّف أكثر من ٩٤ كتاباً. درس في الأزهر ودرّس في جامعة الأمير عبد القادر بقسنطينة (الجزائر). حاصل على جائزة الملك فيصل.', bookTitle:'عن الكتاب', bookDesc:'«حقوق الإنسان» كتاب يقارن بين حقوق الإنسان في الإسلام والإعلان العالمي لحقوق الإنسان. يبين الشيخ الغزالي كيف سبق الإسلام العالم بـ١٤ قرناً في إقرار حقوق الإنسان وحمايتها.', sourcesTitle:'المصادر', sources:['كتاب "حقوق الإنسان" — الشيخ محمد الغزالي','القرآن الكريم','صحيح البخاري ومسلم','الإعلان العالمي لحقوق الإنسان'], contact:'تواصل: abdelhak.bourdim@gmail.com' }, en: { disclaimerTitle:'⚠️ Important Notice', disclaimer:'I am not a scholar or mufti. This is a humble effort by a Muslim who loves Sheikh al-Ghazali\'s books.', authorName:'Sheikh Mohammed al-Ghazali', authorDates:'1917 — 1996', authorBio:'Prominent Egyptian Islamic scholar. Authored over 94 books. Studied at Al-Azhar and taught at Emir Abdelkader University in Constantine, Algeria. King Faisal Award winner.', bookTitle:'About the Book', bookDesc:'"Human Rights" compares human rights in Islam with the Universal Declaration. Sheikh al-Ghazali shows how Islam preceded the world by 14 centuries in establishing and protecting human rights.', sourcesTitle:'Sources', sources:['"Human Rights" (Huquq al-Insan) — Sheikh Mohammed al-Ghazali','The Holy Quran','Sahih al-Bukhari and Muslim','Universal Declaration of Human Rights'], contact:'Contact: abdelhak.bourdim@gmail.com' }, fr: { disclaimerTitle:'⚠️ Avis Important', disclaimer:'Je ne suis ni savant ni mufti. C\'est un effort humble d\'un musulman qui aime les livres du Sheikh al-Ghazali.', authorName:'Sheikh Mohammed al-Ghazali', authorDates:'1917 — 1996', authorBio:'Eminent savant islamique egyptien. Auteur de plus de 94 livres. Diplome d\'Al-Azhar, professeur a Constantine (Algerie). Laureat du Prix Roi Faysal.', bookTitle:'A Propos du Livre', bookDesc:'\"Droits de l\'Homme\" compare les droits de l\'homme en Islam avec la Declaration Universelle. Le Sheikh al-Ghazali montre comment l\'Islam a precede le monde de 14 siecles.', sourcesTitle:'Sources', sources:['"Droits de l\'Homme" — Sheikh Mohammed al-Ghazali','Le Saint Coran','Sahih al-Bukhari et Muslim','Declaration Universelle des Droits de l\'Homme'], contact:'Contact : abdelhak.bourdim@gmail.com' } }; const a = about[lang]; document.getElementById('aboutContainer').innerHTML = `<div class="about-disclaimer"><div class="about-disclaimer-title">${a.disclaimerTitle}</div><p>${a.disclaimer}</p></div><div class="about-author"><span class="about-author-icon">📚</span><div class="about-author-info"><div class="about-author-name">${a.authorName}</div><div class="about-author-dates">${a.authorDates}</div><div class="about-author-bio">${a.authorBio}</div></div></div><div class="about-section"><div class="about-section-title">${a.bookTitle}</div><p class="about-text">${a.bookDesc}</p></div><div class="about-section"><div class="about-section-title">${a.sourcesTitle}</div>${a.sources.map(s => `<p class="about-text">&#8226; ${s}</p>`).join('')}</div><div class="about-section"><p class="about-text">${a.contact}</p></div>`; }
+function renderAbout() { const about = { ar: { disclaimerTitle:'⚠️ تنبيه مهم', disclaimer:'لست عالماً ولا مفتياً. هذا جهد متواضع من مسلم يحب كتب الشيخ الغزالي. المحتوى مستمد من الكتاب ومصادر إسلامية موثوقة.', authorName:'الشيخ محمد الغزالي', authorDates:'١٩١٧ — ١٩٩٦', authorBio:'عالم ومفكر إسلامي مصري بارز. ألّف أكثر من ٩٤ كتاباً. درس في الأزهر ودرّس في جامعة الأمير عبد القادر بقسنطينة (الجزائر). حاصل على جائزة الملك فيصل.', bookTitle:'عن الكتاب', bookDesc:'«حقوق الإنسان» كتاب يقارن بين حقوق الإنسان في الإسلام والإعلان العالمي لحقوق الإنسان. يبين الشيخ الغزالي كيف سبق الإسلام العالم بـ١٤ قرناً في إقرار حقوق الإنسان وحمايتها.', sourcesTitle:'المصادر', sources:['كتاب "حقوق الإنسان" — الشيخ محمد الغزالي','القرآن الكريم','صحيح البخاري ومسلم','الإعلان العالمي لحقوق الإنسان'], contact:'تواصل: abdelhak.bourdim@gmail.com' }, en: { disclaimerTitle:'⚠️ Important Notice', disclaimer:'I am not a scholar or mufti. This is a humble effort by a Muslim who loves Sheikh al-Ghazali\'s books.', authorName:'Sheikh Mohammed al-Ghazali', authorDates:'1917 — 1996', authorBio:'Prominent Egyptian Islamic scholar. Authored over 94 books. Studied at Al-Azhar and taught at Emir Abdelkader University in Constantine, Algeria. King Faisal Award winner.', bookTitle:'About the Book', bookDesc:'"Human Rights" compares human rights in Islam with the Universal Declaration. Sheikh al-Ghazali shows how Islam preceded the world by 14 centuries in establishing and protecting human rights.', sourcesTitle:'Sources', sources:['"Human Rights" (Huquq al-Insan) — Sheikh Mohammed al-Ghazali','The Holy Quran','Sahih al-Bukhari and Muslim','Universal Declaration of Human Rights'], contact:'Contact: abdelhak.bourdim@gmail.com' }, fr: { disclaimerTitle:'⚠️ Avis Important', disclaimer:'Je ne suis ni savant ni mufti. C\'est un effort humble d\'un musulman qui aime les livres du Sheikh al-Ghazali.', authorName:'Sheikh Mohammed al-Ghazali', authorDates:'1917 — 1996', authorBio:'Eminent savant islamique egyptien. Auteur de plus de 94 livres. Diplome d\'Al-Azhar, professeur a Constantine (Algerie). Laureat du Prix Roi Faysal.', bookTitle:'A Propos du Livre', bookDesc:'\"Droits de l\'Homme\" compare les droits de l\'homme en Islam avec la Declaration Universelle. Le Sheikh al-Ghazali montre comment l\'Islam a precede le monde de 14 siecles.', sourcesTitle:'Sources', sources:['"Droits de l\'Homme" — Sheikh Mohammed al-Ghazali','Le Saint Coran','Sahih al-Bukhari et Muslim','Declaration Universelle des Droits de l\'Homme'], contact:'Contact : abdelhak.bourdim@gmail.com' } }; const a = about[lang]; (document.getElementById('aboutContainer')||{}).innerHTML= `<div class="about-disclaimer"><div class="about-disclaimer-title">${a.disclaimerTitle}</div><p>${a.disclaimer}</p></div><div class="about-author"><span class="about-author-icon">📚</span><div class="about-author-info"><div class="about-author-name">${a.authorName}</div><div class="about-author-dates">${a.authorDates}</div><div class="about-author-bio">${a.authorBio}</div></div></div><div class="about-section"><div class="about-section-title">${a.bookTitle}</div><p class="about-text">${a.bookDesc}</p></div><div class="about-section"><div class="about-section-title">${a.sourcesTitle}</div>${a.sources.map(s => `<p class="about-text">&#8226; ${s}</p>`).join('')}</div><div class="about-section"><p class="about-text">${a.contact}</p></div>`; }
 
 // ═══════════════ RENDER: HELP ═══════════════
-function renderHelp() { const help = { ar: [{title:'⚠️ تنبيه',body:'لست عالماً. هذا جهد متواضع لنشر حقوق الإنسان في الإسلام بطريقة تفاعلية.'},{title:'📚 المصادر',body:'كتاب "حقوق الإنسان" للشيخ محمد الغزالي، القرآن الكريم، السنة النبوية.'},{title:'✨ المميزات',body:'ثلاث لغات (عربي/إنجليزي/فرنسي)، ٣ أنماط، ٢٠ حقاً، مسابقة تفاعلية، نظام نقاط وشارات.'},{title:'🌟 وضع مستكشف صغير',body:'للأطفال ٧-١٢ سنة — نصوص مبسطة بالإيموجي.'},{title:'📖 وضع باحث شاب',body:'للشباب ١٣+ — نصوص كاملة مع آيات وأحاديث وتحليل.'}], en: [{title:'⚠️ Disclaimer',body:'I am not a scholar. This is a humble effort to share human rights in Islam interactively.'},{title:'📚 Sources',body:'"Human Rights" by Sheikh Mohammed al-Ghazali, the Holy Quran, Prophetic Sunnah.'},{title:'✨ Features',body:'Three languages (AR/EN/FR), 3 themes, 15 rights, interactive quiz, XP and badges system.'},{title:'🌟 Young Explorer',body:'For kids 7-12 — simplified text with emojis.'},{title:'📖 Teen Scholar',body:'For teens 13+ — full text with verses, hadiths, and analysis.'}], fr: [{title:'⚠️ Avertissement',body:'Je ne suis pas un savant. C\'est un effort humble pour partager les droits de l\'homme en Islam.'},{title:'📚 Sources',body:'"Droits de l\'Homme" par Sheikh Mohammed al-Ghazali, le Saint Coran, la Sunnah.'},{title:'✨ Fonctionnalites',body:'Trois langues (AR/EN/FR), 3 themes, 20 droits, quiz interactif, systeme XP et badges.'},{title:'🌟 Jeune Explorateur',body:'Pour enfants 7-12 ans — texte simplifie avec emojis.'},{title:'📖 Jeune Chercheur',body:'Pour ados 13+ — texte complet avec versets, hadiths et analyse.'}] }; document.getElementById('helpBody').innerHTML = help[lang].map(h => `<div class="help-item"><div class="help-item-title">${h.title}</div><div>${h.body}</div></div>`).join(''); }
+function renderHelp() { const help = { ar: [{title:'⚠️ تنبيه',body:'لست عالماً. هذا جهد متواضع لنشر حقوق الإنسان في الإسلام بطريقة تفاعلية.'},{title:'📚 المصادر',body:'كتاب "حقوق الإنسان" للشيخ محمد الغزالي، القرآن الكريم، السنة النبوية.'},{title:'✨ المميزات',body:'ثلاث لغات (عربي/إنجليزي/فرنسي)، ٣ أنماط، ٢٠ حقاً، مسابقة تفاعلية، نظام نقاط وشارات.'},{title:'🌟 وضع مستكشف صغير',body:'للأطفال ٧-١٢ سنة — نصوص مبسطة بالإيموجي.'},{title:'📖 وضع باحث شاب',body:'للشباب ١٣+ — نصوص كاملة مع آيات وأحاديث وتحليل.'}], en: [{title:'⚠️ Disclaimer',body:'I am not a scholar. This is a humble effort to share human rights in Islam interactively.'},{title:'📚 Sources',body:'"Human Rights" by Sheikh Mohammed al-Ghazali, the Holy Quran, Prophetic Sunnah.'},{title:'✨ Features',body:'Three languages (AR/EN/FR), 3 themes, 15 rights, interactive quiz, XP and badges system.'},{title:'🌟 Young Explorer',body:'For kids 7-12 — simplified text with emojis.'},{title:'📖 Teen Scholar',body:'For teens 13+ — full text with verses, hadiths, and analysis.'}], fr: [{title:'⚠️ Avertissement',body:'Je ne suis pas un savant. C\'est un effort humble pour partager les droits de l\'homme en Islam.'},{title:'📚 Sources',body:'"Droits de l\'Homme" par Sheikh Mohammed al-Ghazali, le Saint Coran, la Sunnah.'},{title:'✨ Fonctionnalites',body:'Trois langues (AR/EN/FR), 3 themes, 20 droits, quiz interactif, systeme XP et badges.'},{title:'🌟 Jeune Explorateur',body:'Pour enfants 7-12 ans — texte simplifie avec emojis.'},{title:'📖 Jeune Chercheur',body:'Pour ados 13+ — texte complet avec versets, hadiths et analyse.'}] }; (document.getElementById('helpBody')||{}).innerHTML= help[lang].map(h => `<div class="help-item"><div class="help-item-title">${h.title}</div><div>${h.body}</div></div>`).join(''); }
 
 // ═══════════════ RENDER: DUAS ═══════════════
-function renderDuas() { document.getElementById('duaPanelContent').innerHTML = DUAS.map(d => { const dd = d[lang]; return `<div class="dua-item"><div class="dua-item-label">${dd.label}</div><div class="dua-item-ar">${dd.text}</div><div class="dua-item-tr">${dd.tr}</div></div>`; }).join(''); }
+function renderDuas() { (document.getElementById('duaPanelContent')||{}).innerHTML= DUAS.map(d => { const dd = d[lang]; return `<div class="dua-item"><div class="dua-item-label">${dd.label}</div><div class="dua-item-ar">${dd.text}</div><div class="dua-item-tr">${dd.tr}</div></div>`; }).join(''); }
 
 // ═══════════════ TICKER ═══════════════
 function renderTicker() { const tips = { ar:['📖 اقرأ حقاً جديداً كل يوم','🏆 اجمع النقاط واربح الشارات','🌟 جرب وضع المستكشف الصغير','🤲 لا تنسَ الدعاء','⭐ أكمل ٢٠ حقاً لتصبح خبيراً'], en:['📖 Read a new right every day','🏆 Collect points and earn badges','🌟 Try Young Explorer mode','🤲 Don\'t forget to make dua','⭐ Complete all 15 rights to become an Expert'], fr:['📖 Lisez un nouveau droit chaque jour','🏆 Collectez des points et gagnez des badges','🌟 Essayez le mode Jeune Explorateur','🤲 N\'oubliez pas les duas','⭐ Completez les 20 droits pour devenir Expert'] }; const items = tips[lang]; const doubled = [...items, ...items]; const ticker = document.getElementById('tickerText'); ticker.innerHTML = doubled.map(t => `<span class="tc">&nbsp;&nbsp;${t}&nbsp;&nbsp;•</span>`).join(''); ticker.style.animation = `tickerMarquee ${items.length * 6}s linear infinite`; }
@@ -827,6 +827,10 @@ function switchTab(name) {
     });
     initTypewriter();
   }, 100);
+  // Auto-render quiz when switching to quiz tab
+  if (name === 'quiz' && document.getElementById('quizContainer') && !document.getElementById('quizContainer').innerHTML.trim()) {
+    renderQuiz();
+  }
 }
 
 // ═══════════════ SCROLL REVEAL ═══════════════
