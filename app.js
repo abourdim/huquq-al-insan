@@ -484,6 +484,7 @@ function renderTraits() {
   const t = T[lang];
   const readTraits = getReadTraits();
   const container = document.getElementById('traitsContainer');
+  if (!container) return;
   const searchHTML = `<div class="search-bar">
     <span class="search-icon">🔍</span>
     <input class="search-input" id="traitsSearch"
@@ -574,7 +575,9 @@ function renderQuiz() {
 function showQuizQuestion() {
   const t = T[lang];
   const container = document.getElementById('quizContainer');
+  if (!container) return;
   const result = document.getElementById('quizResult');
+  if (!result) return;
   result.classList.add('hidden');
   if (quizState.current >= QUIZ.length) {
     showQuizResult();
@@ -621,6 +624,7 @@ function answerQuiz(idx) {
     if (i === idx && i !== correct) o.classList.add('wrong');
   });
   const feedback = document.getElementById('quizFeedback');
+  if (!feedback) return;
   feedback.classList.remove('hidden');
   if (idx === correct) {
     quizState.score++;
@@ -656,6 +660,7 @@ function useHint() {
   quizState.lifelines.hint = false;
   const q = QUIZ[quizState.current][lang];
   const feedback = document.getElementById('quizFeedback');
+  if (!feedback) return;
   feedback.classList.remove('hidden');
   feedback.innerHTML = `<span class="fb-hint">💡 ${q.hint}</span>`;
   playSound('click');
@@ -666,6 +671,7 @@ function useQuranRef() {
   quizState.lifelines.quran = false;
   const q = QUIZ[quizState.current][lang];
   const feedback = document.getElementById('quizFeedback');
+  if (!feedback) return;
   feedback.classList.remove('hidden');
   feedback.innerHTML = `<span class="fb-quran">📖 ${q.quran}</span>`;
   playSound('click');
@@ -691,6 +697,7 @@ function showQuizResult() {
   }
   (document.getElementById('quizContainer')||{}).innerHTML= '';
   const result = document.getElementById('quizResult');
+  if (!result) return;
   result.classList.remove('hidden');
   result.innerHTML = `
     <div class="qr-emoji">${emoji}</div>
@@ -760,6 +767,7 @@ function renderProgress() {
 
 function updateXPDisplay() {
   const panel = document.getElementById('panel-progress');
+  if (!panel) return;
   if (panel && panel.classList.contains('active')) renderProgress();
 }
 
@@ -780,6 +788,7 @@ let splashTimer;
 
 function initSplash() {
   const features = document.getElementById('splashFeatures');
+  if (!features) return;
   if (features) {
     features.innerHTML = T[lang].splashFeatures.map((f, i) =>
       `<div class="splash-feature" style="animation-delay:${0.3+i*0.3}s">${f}</div>`
@@ -787,6 +796,7 @@ function initSplash() {
   }
   let count = 5;
   const counter = document.getElementById('splashCount');
+  if (!counter) return;
   splashTimer = setInterval(() => {
     count--;
     if (counter) counter.textContent = count;
@@ -797,6 +807,7 @@ function initSplash() {
 function dismissSplash() {
   clearInterval(splashTimer);
   const splash = document.getElementById('splash');
+  if (!splash) return;
   if (splash) {
     splash.classList.add('hidden');
     setTimeout(() => splash.remove(), 600);
@@ -854,13 +865,16 @@ function initKeyboardNav() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       const hp = document.getElementById('helpPanel');
+      if (!hp) return;
       if (!hp.classList.contains('hidden')) { toggleHelp(); return; }
       const dp = document.getElementById('duaPanel');
+      if (!dp) return;
       if (!dp.classList.contains('hidden')) { toggleDuaPanel(); return; }
       document.querySelectorAll('.trait-card.open').forEach(c => c.classList.remove('open'));
     }
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
       const panel = document.getElementById('panel-traits');
+      if (!panel) return;
       if (!panel || !panel.classList.contains('active')) return;
       if (document.activeElement && document.activeElement.id === 'traitsSearch') return;
       e.preventDefault();
@@ -903,7 +917,9 @@ function toggleDuaPanel() {
 
 function showToast(msg) {
   const t = document.getElementById('toast');
+  if (!t) return;
   const m = document.getElementById('toastMsg');
+  if (!m) return;
   if (t && m) {
     m.textContent = msg;
     t.style.display = 'block';
@@ -913,6 +929,7 @@ function showToast(msg) {
 
 function initScrollTop() {
   const btn = document.getElementById('scrollTop');
+  if (!btn) return;
   window.addEventListener('scroll', () => {
     if (btn) btn.classList.toggle('visible', window.scrollY > 300);
   });
